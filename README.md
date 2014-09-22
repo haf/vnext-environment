@@ -27,13 +27,14 @@ docker pull centos # get latest baselines
 ```
 
 Now, get started [using CoreOS][using-coreos] with [centos][centos-baseline].
-Spy on [haf/oss][haf-oss] for packages.
+Spy on [haf/oss][haf-oss] for packages. Containers will be pushed to [haaf][haaf].
 
 [virtualbox]: https://www.virtualbox.org/
 [vagrant]: https://www.vagrantup.com/downloads.html
 [using-coreos]: http://coreos.com/docs/using-coreos/
 [centos-baseline]: http://wiki.centos.org/Cloud/Docker
 [haf-oss]: https://packagecloud.io/haf/oss/
+[haaf]: https://registry.hub.docker.com/u/haaf/mono-baseline/
 
 #### Shared Folder Setup
 
