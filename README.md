@@ -1,52 +1,32 @@
 # CoreOS Vagrant
 
-This repo provides a template Vagrantfile to create a CoreOS virtual machine using the VirtualBox software hypervisor.
-After setup is complete you will have a single CoreOS virtual machine running on your local machine.
+This repo provides a template Vagrantfile to create a CoreOS virtual machine
+using the VirtualBox software hypervisor.  After setup is complete you will have
+a single CoreOS virtual machine running on your local machine.
 
 ## Streamlined setup
 
-1) Install dependencies
-
-* [VirtualBox][virtualbox] 4.3.10 or greater.
-* [Vagrant][vagrant] 1.6 or greater.
-
-2) Clone this project and get it running!
-
 ```
-git clone https://github.com/coreos/coreos-vagrant/
-cd coreos-vagrant
-```
-
-3) Startup and SSH
-
-There are two "providers" for Vagrant with slightly different instructions.
-Follow one of the following two options:
-
-**VirtualBox Provider**
-
-The VirtualBox provider is the default Vagrant provider. Use this if you are unsure.
-
-```
+brew install caskroom/cask/brew-cask
+brew cask install vagrant virtualbox
+git clone https://github.com/haf/vnext-environment.git
+cd vnext-environment
+cp config.rb.sample config.rb # uncomment the auto-token code at the start of file
+cp user-data.sample user-data
 vagrant up
-vagrant ssh
+vagrant ssh core-01 -c 'docker --version'
+alias docker='docker -H tcp://127.0.0.1:2375
+brew versions docker
+(cd /usr/local/Library
+ git checkout c6e04e3 # or whatever the above command displayed as the docker ver
+)
+docker info # this displays the output of the core-01 docker config,
+            # through the alias set up above (you can add it to your
+            # shell profile now
+docker pull centos # get latest baselines
 ```
 
-**VMware Provider**
-
-The VMware provider is a commercial addon from Hashicorp that offers better stability and speed.
-If you use this provider follow these instructions.
-
-```
-vagrant up --provider vmware_fusion
-vagrant ssh
-```
-
-``vagrant up`` triggers vagrant to download the CoreOS image (if necessary) and (re)launch the instance
-
-``vagrant ssh`` connects you to the virtual machine.
-Configuration is stored in the directory so you can always return to this machine by executing vagrant ssh from the directory where the Vagrantfile was located.
-
-3) Get started [using CoreOS][using-coreos]
+Now, get started [using CoreOS][using-coreos]
 
 [virtualbox]: https://www.virtualbox.org/
 [vagrant]: https://www.vagrantup.com/downloads.html
@@ -54,15 +34,7 @@ Configuration is stored in the directory so you can always return to this machin
 
 #### Shared Folder Setup
 
-There is optional shared folder setup.
-You can try it out by adding a section to your Vagrantfile like this.
-
-```
-config.vm.network "private_network", ip: "172.17.8.150"
-config.vm.synced_folder ".", "/home/core/share", id: "core", :nfs => true,  :mount_options   => ['nolock,vers=3,udp']
-```
-
-After a 'vagrant reload' you will be prompted for your local machine password.
+Automatic.
 
 #### Provisioning with user-data
 
@@ -91,7 +63,6 @@ If you want to start from the most up to date version you will need to make sure
 Simply remove the old box file and vagrant will download the latest one the next time you `vagrant up`.
 
 ```
-vagrant box remove coreos --provider vmware_fusion
 vagrant box remove coreos --provider virtualbox
 ```
 
