@@ -26,11 +26,14 @@ docker info # this displays the output of the core-01 docker config,
 docker pull centos # get latest baselines
 ```
 
-Now, get started [using CoreOS][using-coreos]
+Now, get started [using CoreOS][using-coreos] with [centos][centos-baseline].
+Spy on [haf/oss][haf-oss] for packages.
 
 [virtualbox]: https://www.virtualbox.org/
 [vagrant]: https://www.vagrantup.com/downloads.html
 [using-coreos]: http://coreos.com/docs/using-coreos/
+[centos-baseline]: http://wiki.centos.org/Cloud/Docker
+[haf-oss]: https://packagecloud.io/haf/oss/
 
 #### Shared Folder Setup
 
